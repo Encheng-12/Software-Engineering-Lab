@@ -5,7 +5,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class Main2 {
     public static void main(String[] args) throws InterruptedException {
         long startTime = System.currentTimeMillis();
-        // Reuses Producer and Consumer with BlockingOrderQueue backed by ArrayBlockingQueue
+
         OrderQueue buffer = new BlockingOrderQueue(5);
         AtomicInteger processedCount = new AtomicInteger(0);
 

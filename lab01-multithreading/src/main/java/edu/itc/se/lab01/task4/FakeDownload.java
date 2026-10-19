@@ -14,12 +14,11 @@ public class FakeDownload implements Callable<String> {
 
     @Override
     public String call() throws Exception {
-        // Every 50th task throws an IOException ("boom")[cite: 5]
+
         if (index > 0 && index % 50 == 0) {
             throw new IOException("boom");
         }
 
-        // Simulate network delay or the slow 5-second task[cite: 5, 7]
         if ("http://slow".equals(url)) {
             Thread.sleep(5000);
         } else {

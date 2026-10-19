@@ -8,7 +8,6 @@ public class Main {
         OrderQueue buffer = new BoundedBuffer(5);
         AtomicInteger processedCount = new AtomicInteger(0);
 
-        // 3 consumers, so we need 3 poison pills total distributed among producers (e.g., 2 and 1)
         Thread p1 = new Thread(new Producer(buffer, 50, 2), "producer-1");
         Thread p2 = new Thread(new Producer(buffer, 50, 1), "producer-2");
 

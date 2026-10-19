@@ -2,7 +2,6 @@ package edu.itc.se.lab01.task2;
 
 import java.util.concurrent.atomic.AtomicLong;
 
-// Step 5: AtomicCounter using AtomicLong
 class AtomicCounter implements Counter {
     private final AtomicLong count = new AtomicLong(0);
 
