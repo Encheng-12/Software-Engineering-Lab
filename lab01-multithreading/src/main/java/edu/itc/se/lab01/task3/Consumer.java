@@ -2,6 +2,8 @@ package edu.itc.se.lab01.task3;
 
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.concurrent.locks.LockSupport;
+import java.util.concurrent.TimeUnit;
 
 public class Consumer implements Runnable {
     private final OrderQueue queue;
@@ -23,8 +25,10 @@ public class Consumer implements Runnable {
                     System.out.println(name + " received poison pill, stopping");
                     break;
                 }
-                // "Process" order with a 5–30 ms sleep
-                Thread.sleep(ThreadLocalRandom.current().nextInt(5, 31));
+                
+                int millis = ThreadLocalRandom.current().nextInt(5, 31);
+                LockSupport.parkNanos(TimeUnit.MILLISECONDS.toNanos(millis));
+                
                 processedCount.incrementAndGet();
                 System.out.println(name + " processed " + order);
             }

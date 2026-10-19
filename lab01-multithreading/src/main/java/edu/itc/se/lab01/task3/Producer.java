@@ -2,6 +2,8 @@ package edu.itc.se.lab01.task3;
 
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.concurrent.locks.LockSupport;
+import java.util.concurrent.TimeUnit;
 
 public class Producer implements Runnable {
     private final OrderQueue queue;
@@ -21,7 +23,8 @@ public class Producer implements Runnable {
             for (int i = 1; i <= ordersCount; i++) {
                 Order order = new Order(i, "item-" + i, random.nextInt(5) + 1);
                 queue.put(order);
-                Thread.sleep(ThreadLocalRandom.current().nextInt(0, 21)); // 0–20 ms pause
+                int millis = ThreadLocalRandom.current().nextInt(0, 21);
+                LockSupport.parkNanos(TimeUnit.MILLISECONDS.toNanos(millis));
             }
 
             for (int p = 0; p < poisonPillsCount; p++) {

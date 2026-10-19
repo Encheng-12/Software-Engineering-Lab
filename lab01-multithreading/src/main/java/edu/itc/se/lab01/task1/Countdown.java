@@ -1,5 +1,8 @@
 package edu.itc.se.lab01.task1;
 
+import java.util.concurrent.locks.LockSupport;
+import java.util.concurrent.TimeUnit;
+
 public class Countdown extends Thread {
 
     public Countdown(String name) {
@@ -10,12 +13,7 @@ public class Countdown extends Thread {
     public void run() {
         for (int i = 3; i >= 1; i--) {
             System.out.println(getName() + ": " + i);
-            try {
-                Thread.sleep(200);
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-                break;
-            }
+            LockSupport.parkNanos(TimeUnit.MILLISECONDS.toNanos(200));
         }
         System.out.println(getName() + ": liftoff!");
     }

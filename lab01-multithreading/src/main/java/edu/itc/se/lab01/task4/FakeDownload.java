@@ -2,6 +2,8 @@ package edu.itc.se.lab01.task4;
 
 import java.io.IOException;
 import java.util.concurrent.Callable;
+import java.util.concurrent.locks.LockSupport;
+import java.util.concurrent.TimeUnit;
 
 public class FakeDownload implements Callable<String> {
     private final String url;
@@ -20,9 +22,9 @@ public class FakeDownload implements Callable<String> {
         }
 
         if ("http://slow".equals(url)) {
-            Thread.sleep(5000);
+            LockSupport.parkNanos(TimeUnit.SECONDS.toNanos(5));
         } else {
-            Thread.sleep(200);
+            LockSupport.parkNanos(TimeUnit.MILLISECONDS.toNanos(200));
         }
 
         return url + " -> " + url.length();
